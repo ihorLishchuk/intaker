@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 
 import {WeatherWidgetBasicComponent} from '../weather-widget-basic/weather-widget-basic.component';
-import {Forecast} from '../../../entities';
+import {ForecastEntity} from '../../../entities';
 
 @Component({
   selector: 'app-weather-widget-forecast',
@@ -13,5 +13,5 @@ import {Forecast} from '../../../entities';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetForecastComponent {
-  forecast = input<Forecast | undefined>();
+  forecast = input<ForecastEntity | undefined>();
 }

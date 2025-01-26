@@ -1,0 +1,13 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="toggleFavourites.emit(true)">
+    <mat-icon>favorite</mat-icon>
+    <span>Favourite cities</span>
+  </button>
+  <button mat-menu-item (click)="toggleFavourites.emit(false)">
+    <mat-icon>list</mat-icon>
+    <span>All cities</span>
+  </button>
+</mat-menu>

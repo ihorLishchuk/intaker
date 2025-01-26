@@ -1,5 +1,5 @@
 // TODO: Split the entity to smaller parts.
-export interface CurrentWeatherConditionsEntity {
+export interface CurrentWeatherEntity {
   coord: {
     lon: number,
     lat: number

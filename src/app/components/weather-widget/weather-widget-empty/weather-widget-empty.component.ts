@@ -8,6 +8,7 @@ import {combineLatest, filter, switchMap, take, tap} from 'rxjs';
 
 import {DialogSelectCityComponent} from '../../dialogs';
 import {StorageService, WeatherService} from '../../../services';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-empty-weather-widget',
@@ -25,8 +26,18 @@ export class WeatherWidgetEmptyComponent {
   readonly #viewContainerRef = inject(ViewContainerRef);
   readonly #weatherService = inject(WeatherService);
   readonly storageService = inject(StorageService);
+  readonly snackBar = inject(MatSnackBar);
 
-  selectedCities = this.storageService.selectedCities;
+  selectedCities = this.storageService.cities;
+  #hasDuplicates = (cityName: string): boolean => {
+      return this.selectedCities().some(city => city.currentWeather.name === cityName);
+  }
+
+  #checkIfSnackBarRequired = (cityName: string): void => {
+    if (this.#hasDuplicates(cityName)) {
+      this.snackBar.open(`You already have a widget with the city: ${cityName}`, 'Close');
+    }
+  }
 
   openDialog = (): void => {
     const dialogRef = this.#dialog.open(DialogSelectCityComponent, {
@@ -36,11 +47,13 @@ export class WeatherWidgetEmptyComponent {
     dialogRef.afterClosed().pipe(
       take(1),
       filter(Boolean),
+      tap(this.#checkIfSnackBarRequired),
+      filter((cityName: string) => !this.#hasDuplicates(cityName)),
       switchMap((cityName: string) => combineLatest({
-        currentWeatherConditions: this.#weatherService.getCurrentWeatherConditionsByCity(cityName),
+        currentWeather: this.#weatherService.getCurrentWeatherByCity(cityName),
         forecast: this.#weatherService.getNDaysForecast({ name: cityName }),
       })),
-      tap((newCity) => this.selectedCities.update((currentCities) => [...currentCities, newCity])),
+      tap((newCity) => this.selectedCities.update((currentCities) => [...currentCities, { ...newCity, favourite: false }])),
     ).subscribe();
   }
 }

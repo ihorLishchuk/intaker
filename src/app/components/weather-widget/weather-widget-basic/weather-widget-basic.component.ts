@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {DatePipe} from '@angular/common';
 
-import {CurrentWeatherConditionsEntity} from '../../../entities';
+import {CurrentWeatherEntity} from '../../../entities';
 
 @Component({
   selector: 'app-weather-widget-basic',
@@ -12,5 +12,5 @@ import {CurrentWeatherConditionsEntity} from '../../../entities';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetBasicComponent {
-  conditions = input<CurrentWeatherConditionsEntity | undefined>();
+  conditions = input<CurrentWeatherEntity | undefined>();
 }

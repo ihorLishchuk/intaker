@@ -1,11 +1,11 @@
-import {CurrentWeatherConditionsEntity} from './current-weather-conditions.entity';
+import {CurrentWeatherEntity} from './current-weather.entity';
 
 // TODO: Split the entity to smaller parts.
-export interface Forecast {
+export interface ForecastEntity {
   "cod": string,
   "message": number,
   "cnt": number,
-  "list": CurrentWeatherConditionsEntity[],
+  "list": CurrentWeatherEntity[],
   "city": {
     "id": number,
     "name": string,
