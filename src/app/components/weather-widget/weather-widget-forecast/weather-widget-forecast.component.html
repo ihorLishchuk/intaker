@@ -1,0 +1,7 @@
+@if (forecast()) {
+  <div class="forecast">
+    @for (item of forecast()?.list; track item.dt) {
+      <app-weather-widget-basic [conditions]="item"></app-weather-widget-basic>
+    }
+  </div>
+}

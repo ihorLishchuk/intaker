@@ -5,7 +5,7 @@
   "projects": {
     "intaker": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": { "@schematics/angular:component": { "style": "scss" } },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -23,11 +23,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "public"
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -85,7 +86,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

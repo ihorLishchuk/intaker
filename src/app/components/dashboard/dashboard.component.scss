@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.container {
+  height: calc(100% - 65px - 1rem);
+  &__content {
+    height: 100%;
+  }
+}
+
+.widget-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+  gap: 1rem;
+}

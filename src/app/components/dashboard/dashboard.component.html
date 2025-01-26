@@ -1,0 +1,16 @@
+<!-- TODO: The toolbar should have a separate component with a service to change the toolbar name based on the current page. -->
+<mat-toolbar>
+  <span>Dashboard</span>
+</mat-toolbar>
+<mat-card appearance="outlined" class="container">
+  <mat-card-content class="container__content">
+    <div class="widget-list">
+      @if (selectedCities().length) {
+        @for (city of selectedCities(); track city.currentWeatherConditions.id; let index = $index) {
+          <app-weather-widget [city]="city" [index]="index"></app-weather-widget>
+        }
+      }
+      <app-empty-weather-widget></app-empty-weather-widget>
+    </div>
+  </mat-card-content>
+</mat-card>

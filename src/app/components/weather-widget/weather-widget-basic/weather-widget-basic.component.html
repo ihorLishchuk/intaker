@@ -1,0 +1,22 @@
+@if (conditions()) {
+  <div class="basic">
+    @if (conditions()?.dt_txt) {
+      <!--   TODO: The date format must be taken from user settings   -->
+      <div>{{conditions()?.dt_txt | date:'dd/MM/yyyy H:mm'}}</div>
+    }
+    @if (conditions()?.main?.temp) {
+      <div>
+        Temp: {{conditions()?.main?.temp?.toFixed(0)}}&deg;
+      </div>
+      <div>
+        (Min: {{conditions()?.main?.temp_min?.toFixed(0)}}&deg; - Max: {{conditions()?.main?.temp_max?.toFixed(0)}}&deg;)
+      </div>
+    }
+    @if (conditions()?.main?.humidity) {
+      <div>Humidity: {{conditions()?.main?.humidity}}%</div>
+    }
+    @for (cond of conditions()?.weather; track cond.id) {
+      <div> <span>{{cond.main}}</span>: <span>{{cond.description}}</span> </div>
+    }
+  </div>
+}
