@@ -7,9 +7,11 @@
     @if (currentWeather()?.main?.temp) {
       <div>
         Temp: {{currentWeather()?.main?.temp?.toFixed(0)}}&deg;
-      </div>
-      <div>
-        (Min: {{currentWeather()?.main?.temp_min?.toFixed(0)}}&deg; - Max: {{currentWeather()?.main?.temp_max?.toFixed(0)}}&deg;)
+        @let tempMin = currentWeather()?.main?.temp_min?.toFixed(0);
+        @let tempMax = currentWeather()?.main?.temp_max?.toFixed(0);
+        @if (tempMin !== tempMax) {
+          ({{tempMin}}&deg; - {{tempMax}}&deg;)
+        }
       </div>
     }
     @if (currentWeather()?.main?.humidity) {
