@@ -6,9 +6,9 @@
 <mat-card appearance="outlined" class="container">
   <mat-card-content class="container__content">
     <div class="widget-list">
-      @if (cities().length) {
-        @for (city of cities(); track city.currentWeather?.id; let index = $index) {
-          <app-weather-widget [city]="city" [index]="index"></app-weather-widget>
+      @if (widgets().length) {
+        @for (widget of widgets(); track widget.currentWeather?.id; let index = $index) {
+          <app-weather-widget [widget]="widget" [index]="index"></app-weather-widget>
         }
       }
       <app-empty-weather-widget></app-empty-weather-widget>

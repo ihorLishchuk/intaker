@@ -9,9 +9,10 @@ import {MatIcon} from '@angular/material/icon';
 
 import {WeatherWidgetBasicComponent} from './weather-widget-basic/weather-widget-basic.component';
 import {WeatherWidgetForecastComponent} from './weather-widget-forecast/weather-widget-forecast.component';
+
 import {WidgetEntity} from '../../entities';
-import {StorageService, WeatherService} from '../../services';
-import {DEFAULT_WEATHER_UPDATE} from '../../consts';
+import {WidgetService, WeatherService} from '../../services';
+import {DEFAULT_WEATHER_UPDATE_SEQUENCE} from '../../consts';
 
 @UntilDestroy()
 @Component({
@@ -34,48 +35,36 @@ import {DEFAULT_WEATHER_UPDATE} from '../../consts';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetComponent {
-  readonly #storageService = inject(StorageService);
-  readonly #weatherService = inject(WeatherService);
+  #widgetService = inject(WidgetService);
+  #weatherService = inject(WeatherService);
 
-  cities = this.#storageService.cities;
-
-  city = input<WidgetEntity | undefined>();
+  widget = input<WidgetEntity | undefined>();
   index = input<number>();
 
   toggleFavourite = (index: number | undefined): void => {
-    this.cities.update((currentCities) => {
-      if (index !== undefined && currentCities[index]) currentCities[index] = { ...currentCities[index], favourite: !currentCities[index].favourite }
-      return [...currentCities];
-    })
+    this.#widgetService.toggleFavourite(index);
   }
 
   removeWidget = (index: number | undefined): void => {
-    this.cities.update((currentCities) => {
-      if (index !== undefined) currentCities.splice(index, 1);
-      return [...currentCities];
-    });
+    this.#widgetService.removeWidget(index);
   }
 
-  #updateCity = (updatedCity: WidgetEntity): void => {
-    this.cities.update(cities => {
-      const index = cities.findIndex(city => city.currentWeather.id === updatedCity.currentWeather.id);
-      if (index !== -1) cities.splice(index, 1, updatedCity);
-      return [...cities];
-    })
+  #updateWidget = (updatedWidget: WidgetEntity): void => {
+    this.#widgetService.updateWidget(updatedWidget);
   }
 
   constructor() {
-    interval(DEFAULT_WEATHER_UPDATE)
+    interval(DEFAULT_WEATHER_UPDATE_SEQUENCE)
       .pipe(
         switchMap(() => {
-          const name = this.city()?.currentWeather.name as string;
+          const name = this.widget()?.currentWeather.name as string;
           return combineLatest({
             currentWeather: this.#weatherService.getCurrentWeatherByCity(name),
             forecast: this.#weatherService.getNDaysForecast({ name }),
-            favourite: of(this.city()?.favourite ?? false),
+            favourite: of(this.widget()?.favourite ?? false),
           })
         }),
-        tap(this.#updateCity),
+        tap(this.#updateWidget),
         untilDestroyed(this)
       )
       .subscribe();

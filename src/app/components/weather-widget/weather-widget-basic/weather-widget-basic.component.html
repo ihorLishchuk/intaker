@@ -1,21 +1,21 @@
-@if (conditions()) {
+@if (currentWeather()) {
   <div class="basic">
-    @if (conditions()?.dt_txt) {
+    @if (currentWeather()?.dt_txt) {
       <!--   TODO: The date format must be taken from user settings   -->
-      <div>{{conditions()?.dt_txt | date:'dd/MM/yyyy H:mm'}}</div>
+      <div>{{currentWeather()?.dt_txt | date:'dd/MM/yyyy H:mm'}}</div>
     }
-    @if (conditions()?.main?.temp) {
+    @if (currentWeather()?.main?.temp) {
       <div>
-        Temp: {{conditions()?.main?.temp?.toFixed(0)}}&deg;
+        Temp: {{currentWeather()?.main?.temp?.toFixed(0)}}&deg;
       </div>
       <div>
-        (Min: {{conditions()?.main?.temp_min?.toFixed(0)}}&deg; - Max: {{conditions()?.main?.temp_max?.toFixed(0)}}&deg;)
+        (Min: {{currentWeather()?.main?.temp_min?.toFixed(0)}}&deg; - Max: {{currentWeather()?.main?.temp_max?.toFixed(0)}}&deg;)
       </div>
     }
-    @if (conditions()?.main?.humidity) {
-      <div>Humidity: {{conditions()?.main?.humidity}}%</div>
+    @if (currentWeather()?.main?.humidity) {
+      <div>Humidity: {{currentWeather()?.main?.humidity}}%</div>
     }
-    @for (cond of conditions()?.weather; track cond.id) {
+    @for (cond of currentWeather()?.weather; track cond.id) {
       <div> <span>{{cond.main}}</span>: <span>{{cond.description}}</span> </div>
     }
   </div>

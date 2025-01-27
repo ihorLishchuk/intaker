@@ -9,7 +9,7 @@ export function errorHandlingInterceptor(req: HttpRequest<unknown>, next: HttpHa
   return next(req).pipe(
     catchError((error) => {
       // TODO: App an adapter to handle specific error codes.
-      snackBar.open(`Failed with the next message: ${error.message}`, 'Close');
+      snackBar.open(`Failed with the next message: ${error.error.message}`, 'Close');
       return throwError(() => error)
     })
   );

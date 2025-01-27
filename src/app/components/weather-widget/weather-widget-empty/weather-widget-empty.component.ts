@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, Component, inject, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewContainerRef, WritableSignal} from '@angular/core';
+import {combineLatest, filter, switchMap, take, tap} from 'rxjs';
 
 import {MatButton} from '@angular/material/button';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
-import {combineLatest, filter, switchMap, take, tap} from 'rxjs';
 
 import {DialogSelectCityComponent} from '../../dialogs';
-import {StorageService, WeatherService} from '../../../services';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {WidgetService, WeatherService} from '../../../services';
+import {WidgetEntity} from '../../../entities';
 
 @Component({
   selector: 'app-empty-weather-widget',
@@ -22,20 +23,17 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetEmptyComponent {
-  readonly #dialog = inject(MatDialog);
-  readonly #viewContainerRef = inject(ViewContainerRef);
-  readonly #weatherService = inject(WeatherService);
-  readonly storageService = inject(StorageService);
-  readonly snackBar = inject(MatSnackBar);
+  #dialog = inject(MatDialog);
+  #viewContainerRef = inject(ViewContainerRef);
+  #weatherService = inject(WeatherService);
+  #widgetService = inject(WidgetService);
+  #snackBar = inject(MatSnackBar);
 
-  selectedCities = this.storageService.cities;
-  #hasDuplicates = (cityName: string): boolean => {
-      return this.selectedCities().some(city => city.currentWeather.name === cityName);
-  }
+  widgets: WritableSignal<WidgetEntity[]> = this.#widgetService.widgets;
 
-  #checkIfSnackBarRequired = (cityName: string): void => {
-    if (this.#hasDuplicates(cityName)) {
-      this.snackBar.open(`You already have a widget with the city: ${cityName}`, 'Close');
+  #checkWidgetUniqueness = (cityName: string): void => {
+    if (this.#widgetService.hasDuplicates(cityName)) {
+      this.#snackBar.open(`You already have a widget with the city: ${cityName}`, 'Close');
     }
   }
 
@@ -47,13 +45,13 @@ export class WeatherWidgetEmptyComponent {
     dialogRef.afterClosed().pipe(
       take(1),
       filter(Boolean),
-      tap(this.#checkIfSnackBarRequired),
-      filter((cityName: string) => !this.#hasDuplicates(cityName)),
+      tap(this.#checkWidgetUniqueness),
+      filter((cityName: string) => !this.#widgetService.hasDuplicates(cityName)),
       switchMap((cityName: string) => combineLatest({
         currentWeather: this.#weatherService.getCurrentWeatherByCity(cityName),
         forecast: this.#weatherService.getNDaysForecast({ name: cityName }),
       })),
-      tap((newCity) => this.selectedCities.update((currentCities) => [...currentCities, { ...newCity, favourite: false }])),
+      tap((newWidget) => this.widgets.update((widgets) => [...widgets, { ...newWidget, favourite: false }])),
     ).subscribe();
   }
 }

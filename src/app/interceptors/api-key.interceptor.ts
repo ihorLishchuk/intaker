@@ -1,6 +1,7 @@
 import {inject} from '@angular/core';
 import {HttpEvent, HttpHandlerFn, HttpParams, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
+
 import {APP_CONFIG} from '../../main';
 
 export function apiKeyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {

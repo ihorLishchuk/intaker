@@ -1,16 +1,17 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{city()?.currentWeather?.name}}</mat-card-title>
+    <mat-card-title>{{widget()?.currentWeather?.name}}</mat-card-title>
     <button mat-icon-button (click)="toggleFavourite(index())">
-      <mat-icon>{{ city()?.favourite ? 'favorite' : 'favorite_outlined' }} </mat-icon>
+      <mat-icon>{{ widget()?.favourite ? 'favorite' : 'favorite_outlined' }} </mat-icon>
     </button>
   </mat-card-header>
   <mat-card-content>
-    <app-weather-widget-basic [conditions]="city()?.currentWeather"></app-weather-widget-basic>
+    <app-weather-widget-basic [currentWeather]="widget()?.currentWeather"></app-weather-widget-basic>
     <mat-divider></mat-divider>
-    <app-weather-widget-forecast [forecast]="city()?.forecast"></app-weather-widget-forecast>
+    <app-weather-widget-forecast [forecast]="widget()?.forecast"></app-weather-widget-forecast>
   </mat-card-content>
   <mat-card-actions>
+    <!-- TODO: Add a snack bar to ask user if the action is intended -->
     <button mat-button (click)="removeWidget(index())">Remove</button>
   </mat-card-actions>
 </mat-card>

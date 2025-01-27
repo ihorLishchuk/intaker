@@ -12,5 +12,5 @@ import {CurrentWeatherEntity} from '../../../entities';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetBasicComponent {
-  conditions = input<CurrentWeatherEntity | undefined>();
+  currentWeather = input<CurrentWeatherEntity | undefined>();
 }

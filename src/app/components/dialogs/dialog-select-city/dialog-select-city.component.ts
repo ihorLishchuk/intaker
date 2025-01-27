@@ -1,6 +1,12 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 
-import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from '@angular/material/dialog';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 
@@ -21,5 +27,10 @@ import {SearchBarComponent} from '../../search-bar/search-bar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogSelectCityComponent {
+  #dialogRef = inject(MatDialogRef<DialogSelectCityComponent>)
   selectedCity = '';
+
+  close = (): void => {
+    this.#dialogRef.close(this.selectedCity);
+  }
 }

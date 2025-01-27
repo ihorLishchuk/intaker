@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 
 import {WeatherWidgetBasicComponent} from '../weather-widget-basic/weather-widget-basic.component';
+
 import {ForecastEntity} from '../../../entities';
 
 @Component({

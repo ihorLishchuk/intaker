@@ -5,15 +5,19 @@
 
 .container {
   height: calc(100% - 65px - 1rem);
+  overflow: auto;
   &__content {
     height: 100%;
   }
 }
 
 .widget-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  & > * {
+    flex: 1;
+  }
 }
 
 mat-toolbar {

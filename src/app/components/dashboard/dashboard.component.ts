@@ -3,10 +3,11 @@ import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@ang
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatToolbar} from '@angular/material/toolbar';
 
-import {StorageService} from '../../services';
 import {WeatherWidgetComponent} from '../weather-widget/weather-widget.component';
 import {WeatherWidgetEmptyComponent} from '../weather-widget/weather-widget-empty/weather-widget-empty.component';
 import {FavouritesComponent} from '../favourites/favourites.component';
+
+import {WidgetService} from '../../services';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +24,10 @@ import {FavouritesComponent} from '../favourites/favourites.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  readonly #storageService = inject(StorageService);
+  #widgetService = inject(WidgetService);
 
   showFavourites = signal(false);
-  cities = computed(
-    () => this.#storageService.cities().filter(({ favourite }) => this.showFavourites() ? favourite : true)
+  widgets = computed(
+    () => this.#widgetService.widgets().filter(({ favourite }) => this.showFavourites() ? favourite : true)
   );
 }
