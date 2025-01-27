@@ -1,14 +1,12 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {DatePipe} from '@angular/common';
 
+import {imports} from './weather-widget-basic.imports';
 import {CurrentWeatherEntity} from '../../../entities';
 
 @Component({
   selector: 'app-weather-widget-basic',
   templateUrl: './weather-widget-basic.component.html',
-  imports: [
-    DatePipe
-  ],
+  imports,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetBasicComponent {

@@ -2,14 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {interval, switchMap, combineLatest, tap, of} from 'rxjs';
 
-import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatDivider} from '@angular/material/divider';
-import {MatIcon} from '@angular/material/icon';
-
-import {WeatherWidgetBasicComponent} from './weather-widget-basic/weather-widget-basic.component';
-import {WeatherWidgetForecastComponent} from './weather-widget-forecast/weather-widget-forecast.component';
-
+import {imports} from './weather-widget.imports';
 import {WidgetEntity} from '../../entities';
 import {WidgetService, WeatherService} from '../../services';
 import {DEFAULT_WEATHER_UPDATE_SEQUENCE} from '../../consts';
@@ -19,19 +12,7 @@ import {DEFAULT_WEATHER_UPDATE_SEQUENCE} from '../../consts';
   selector: 'app-weather-widget',
   templateUrl: './weather-widget.component.html',
   styleUrl: './weather-widget.component.scss',
-  imports: [
-    MatCardTitle,
-    MatCardContent,
-    MatCard,
-    MatButton,
-    MatCardActions,
-    MatCardHeader,
-    WeatherWidgetBasicComponent,
-    WeatherWidgetForecastComponent,
-    MatDivider,
-    MatIcon,
-    MatIconButton
-  ],
+  imports,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetComponent {

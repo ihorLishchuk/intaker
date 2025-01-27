@@ -1,29 +1,13 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 
-import {
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle
-} from '@angular/material/dialog';
-import {MatButton} from '@angular/material/button';
-import {MatTooltip} from '@angular/material/tooltip';
+import {MatDialogRef} from '@angular/material/dialog';
 
-import {SearchBarComponent} from '../../search-bar/search-bar.component';
+import {imports} from './dialog-select-city.imports';
 
 @Component({
   selector: 'dialog-select-city',
   templateUrl: './dialog-select-city.component.html',
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-    SearchBarComponent,
-    MatTooltip
-  ],
+  imports,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogSelectCityComponent {

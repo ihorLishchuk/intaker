@@ -1,12 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject, ViewContainerRef, WritableSignal} from '@angular/core';
 import {combineLatest, filter, switchMap, take, tap} from 'rxjs';
 
-import {MatButton} from '@angular/material/button';
-import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-
+import {imports} from './weather-widget-empty.imports';
 import {DialogSelectCityComponent} from '../../dialogs';
 import {WidgetService, WeatherService} from '../../../services';
 import {WidgetEntity} from '../../../entities';
@@ -15,11 +13,7 @@ import {WidgetEntity} from '../../../entities';
   selector: 'app-empty-weather-widget',
   templateUrl: './weather-widget-empty.component.html',
   styleUrl: './weather-widget-empty.component.scss',
-  imports: [
-    MatButton,
-    MatCard,
-    MatCardContent
-  ],
+  imports,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherWidgetEmptyComponent {

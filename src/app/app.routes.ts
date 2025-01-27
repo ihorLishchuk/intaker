@@ -1,10 +1,13 @@
 import {Routes} from '@angular/router';
-import {DashboardComponent, PageNotFoundComponent} from './components';
+import {PageNotFoundComponent} from './components';
 import {WidgetService, WeatherService} from './services';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  // TODO: Add lazy loading.
-  { path: 'dashboard', component: DashboardComponent, providers: [WeatherService, WidgetService] },
+  {
+    path: 'dashboard',
+    loadChildren: async () => (await import('./components/dashboard/dashboard.routes')).DASHBOARD_ROUTES,
+    providers: [WeatherService, WidgetService]
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
