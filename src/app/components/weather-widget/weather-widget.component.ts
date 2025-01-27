@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {interval, switchMap, combineLatest, tap, of} from 'rxjs';
+import {interval, switchMap, combineLatest, tap, of, Observable} from 'rxjs';
 
 import {imports} from './weather-widget.imports';
 import {WidgetEntity} from '../../entities';
@@ -34,8 +34,8 @@ export class WeatherWidgetComponent {
     this.#widgetService.updateWidget(updatedWidget);
   }
 
-  constructor() {
-    interval(DEFAULT_WEATHER_UPDATE_SEQUENCE)
+  automaticUpdateExecution = (time = DEFAULT_WEATHER_UPDATE_SEQUENCE): Observable<WidgetEntity> => {
+    return interval(time)
       .pipe(
         switchMap(() => {
           const name = this.widget()?.currentWeather.name as string;
@@ -47,7 +47,10 @@ export class WeatherWidgetComponent {
         }),
         tap(this.#updateWidget),
         untilDestroyed(this)
-      )
-      .subscribe();
+      );
+  }
+
+  constructor() {
+    this.automaticUpdateExecution().subscribe();
   }
 }

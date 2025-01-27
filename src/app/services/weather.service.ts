@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-import {APP_CONFIG} from '../../main';
+import {APP_CONFIG} from '../configs';
 import {DEFAULT_FORECAST} from '../consts';
 import {CityEntity, CurrentWeatherEntity, ForecastEntity} from '../entities';
 

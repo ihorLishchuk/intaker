@@ -27,6 +27,10 @@ export class WidgetService {
     })
   }
 
+  addNewWidget = (newWidget: WidgetEntity): void => {
+    this.widgets.update((widgets) => [...widgets, { ...newWidget, favourite: false }]);
+  }
+
   hasDuplicates = (cityName: string): boolean => {
     return this.widgets().some(widget => widget.currentWeather.name === cityName);
   }

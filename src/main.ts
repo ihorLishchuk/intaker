@@ -1,14 +1,7 @@
-import { InjectionToken } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-
-
-// TODO: This is must be in a separate file
-import environmentJson from '../public/config/environment.json';
-export type AppConfig = typeof environmentJson;
-export const APP_CONFIG = new InjectionToken<AppConfig>('Application configuration');
-// TODO: This is must be in a separate file
+import { APP_CONFIG } from './app/configs';
 
 fetch('public/config/environment.json')
   .then((environment) => environment.json())

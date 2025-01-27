@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, ViewContainerRef, WritableSignal} from '@angular/core';
-import {combineLatest, filter, switchMap, take, tap} from 'rxjs';
+import {combineLatest, filter, of, switchMap, take, tap} from 'rxjs';
 
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -44,8 +44,9 @@ export class WeatherWidgetEmptyComponent {
       switchMap((cityName: string) => combineLatest({
         currentWeather: this.#weatherService.getCurrentWeatherByCity(cityName),
         forecast: this.#weatherService.getNDaysForecast({ name: cityName }),
+        favourite: of(false)
       })),
-      tap((newWidget) => this.widgets.update((widgets) => [...widgets, { ...newWidget, favourite: false }])),
+      tap(this.#widgetService.addNewWidget),
     ).subscribe();
   }
 }
