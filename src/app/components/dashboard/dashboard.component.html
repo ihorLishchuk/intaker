@@ -8,7 +8,7 @@
     <div class="widget-list">
       @if (widgets().length) {
         @for (widget of widgets(); track widget.currentWeather?.id; let index = $index) {
-          <app-weather-widget [widget]="widget" [index]="index"></app-weather-widget>
+          <app-weather-widget [widget]="widget"></app-weather-widget>
         }
       }
       <app-empty-weather-widget></app-empty-weather-widget>

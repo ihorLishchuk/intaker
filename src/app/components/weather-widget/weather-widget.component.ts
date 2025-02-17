@@ -20,14 +20,15 @@ export class WeatherWidgetComponent {
   #weatherService = inject(WeatherService);
 
   widget = input<WidgetEntity | undefined>();
-  index = input<number>();
 
-  toggleFavourite = (index: number | undefined): void => {
-    this.#widgetService.toggleFavourite(index);
+  toggleFavourite = (): void => {
+    const index = this.#widgetService.widgets().findIndex(sourceWidget => sourceWidget.currentWeather.id === this.widget()?.currentWeather.id);
+    if (index !== -1) this.#widgetService.toggleFavourite(index);
   }
 
-  removeWidget = (index: number | undefined): void => {
-    this.#widgetService.removeWidget(index);
+  removeWidget = (): void => {
+    const index = this.#widgetService.widgets().findIndex(sourceWidget => sourceWidget.currentWeather.id === this.widget()?.currentWeather.id);
+    if (index !== -1) this.#widgetService.removeWidget(index);
   }
 
   #updateWidget = (updatedWidget: WidgetEntity): void => {

@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{widget()?.currentWeather?.name}}</mat-card-title>
-    <button mat-icon-button (click)="toggleFavourite(index())">
+    <button mat-icon-button (click)="toggleFavourite()">
       <mat-icon>{{ widget()?.favourite ? 'favorite' : 'favorite_outlined' }} </mat-icon>
     </button>
   </mat-card-header>
@@ -12,6 +12,6 @@
   </mat-card-content>
   <mat-card-actions>
     <!-- TODO: Add a snack bar to ask user if the action is intended -->
-    <button mat-button (click)="removeWidget(index())">Remove</button>
+    <button mat-button (click)="removeWidget()">Remove</button>
   </mat-card-actions>
 </mat-card>
