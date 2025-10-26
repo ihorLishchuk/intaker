@@ -17,3 +17,29 @@ body {
   font-family: "Roboto Thin", sans-serif;
   height: 99%;
 }
+
+.scroll-container {
+  position: relative;
+
+  &.left-shadow::before,
+  &.right-shadow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+  }
+
+  &.left-shadow::before {
+    left: 0;
+    box-shadow: inset 50px 0px 34px -30px rgba(195,195,195,0.15);
+  }
+
+  &.right-shadow::after {
+    right: 0;
+    box-shadow: inset -50px 0px 34px -30px rgba(195,195,195,0.15);
+  }
+}

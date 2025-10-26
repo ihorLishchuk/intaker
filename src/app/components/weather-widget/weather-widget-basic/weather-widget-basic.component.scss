@@ -1,0 +1,8 @@
+:host {
+  width: max-content;
+}
+.basic {
+  & > div {
+    white-space: nowrap;
+  }
+}

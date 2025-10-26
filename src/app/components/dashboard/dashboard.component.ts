@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 
 import {imports} from './dashboard.imports';
-import {WidgetService} from '../../services';
+import {WidgetService, FavouritesService} from '../../services';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,9 +12,9 @@ import {WidgetService} from '../../services';
 })
 export class DashboardComponent {
   #widgetService = inject(WidgetService);
+  #favouritesService = inject(FavouritesService);
 
-  showFavourites = signal(false);
   widgets = computed(
-    () => this.#widgetService.widgets().filter(({ favourite }) => this.showFavourites() ? favourite : true)
+    () => this.#widgetService.widgets().filter(({ favourite }) => this.#favouritesService.showFavourites() ? favourite : true)
   );
 }

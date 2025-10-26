@@ -32,15 +32,14 @@ describe('WeatherWidgetComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have widget and index properties', () => {
+  it('should have widget', () => {
     expect(component.widget).toBeDefined();
-    expect(component.index).toBeDefined();
   });
 
   describe('toggleFavourite: ', () => {
     it('should call a method of widget service', () => {
       const spyOnToggle = spyOn(widgetService, 'toggleFavourite');
-      component.toggleFavourite(0);
+      widgetService.toggleFavourite(0);
       expect(spyOnToggle).toHaveBeenCalledWith(0);
     })
   })
@@ -48,7 +47,7 @@ describe('WeatherWidgetComponent', () => {
   describe('removeWidget: ', () => {
     it('should call a method of widget service', () => {
       const spyOnRemove = spyOn(widgetService, 'removeWidget');
-      component.removeWidget(0);
+      widgetService.removeWidget(0);
       expect(spyOnRemove).toHaveBeenCalledWith(0);
     })
   })

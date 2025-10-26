@@ -2,11 +2,11 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="toggleFavourites.emit(true)">
+  <button mat-menu-item (click)="toggleFavourites(true)">
     <mat-icon>favorite</mat-icon>
     <span>Favourite cities</span>
   </button>
-  <button mat-menu-item (click)="toggleFavourites.emit(false)">
+  <button mat-menu-item (click)="toggleFavourites(false)">
     <mat-icon>list</mat-icon>
     <span>All cities</span>
   </button>

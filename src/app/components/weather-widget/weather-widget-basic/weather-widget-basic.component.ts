@@ -6,6 +6,7 @@ import {CurrentWeatherEntity} from '../../../entities';
 @Component({
   selector: 'app-weather-widget-basic',
   templateUrl: './weather-widget-basic.component.html',
+  styleUrl: './weather-widget-basic.component.scss',
   imports,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

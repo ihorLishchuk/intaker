@@ -1,7 +1,10 @@
+:host {
+  width: 100%;
+  display: inline-grid;
+}
 .forecast {
   display: flex;
   gap: 1rem;
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-  }
+  flex-wrap: nowrap;
+  overflow: auto;
 }

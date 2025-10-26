@@ -1,13 +1,13 @@
 <!-- TODO: The toolbar should have a separate component with a service to change the toolbar name based on the current page. -->
 <mat-toolbar>
   <span>Dashboard</span>
-  <app-favourites (toggleFavourites)="showFavourites.set($event)"></app-favourites>
+  <app-favourites></app-favourites>
 </mat-toolbar>
 <mat-card appearance="outlined" class="container">
   <mat-card-content class="container__content">
     <div class="widget-list">
       @if (widgets().length) {
-        @for (widget of widgets(); track widget.currentWeather?.id; let index = $index) {
+        @for (widget of widgets(); track widget.currentWeather?.id) {
           <app-weather-widget [widget]="widget"></app-weather-widget>
         }
       }

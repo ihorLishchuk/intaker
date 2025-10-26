@@ -28,8 +28,9 @@ describe('DialogSelectCityComponent', () => {
   describe('close: ', () => {
     it('should close the dialog', () => {
       const spyOnClose = spyOn(dialogRef, 'close');
+      component.selectedCity = 'city';
       component.close();
       expect(spyOnClose).toHaveBeenCalledWith(component.selectedCity);
-    })
+    });
   })
 })

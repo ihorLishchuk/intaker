@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 
 import {imports} from './favourites.imports';
+import {FavouritesService} from '../../services';
 
 @Component({
   selector: 'app-favourites',
@@ -9,5 +10,7 @@ import {imports} from './favourites.imports';
   imports
 })
 export class FavouritesComponent {
-  toggleFavourites = output<boolean>();
+  #favouritesService = inject(FavouritesService);
+
+  toggleFavourites = this.#favouritesService.toggleFavourites;
 }
