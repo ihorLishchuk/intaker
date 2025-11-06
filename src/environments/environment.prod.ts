@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiBase: 'https://<your-bff-app-service>.azurewebsites.net/api',
-  docsUrl: 'https://<your-bff-app-service>.azurewebsites.net/docs'
+  apiBase: 'https://intaker-bff-cverdyhhdxepbaaf.westeurope-01.azurewebsites.net/api',
+  docsUrl: 'https://intaker-bff-cverdyhhdxepbaaf.westeurope-01.azurewebsites.net/docs'
 };
