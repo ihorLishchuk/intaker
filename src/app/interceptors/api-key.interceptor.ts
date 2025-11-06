@@ -3,7 +3,7 @@ import {HttpEvent, HttpHandlerFn, HttpParams, HttpRequest} from '@angular/common
 import {Observable} from 'rxjs';
 import {APP_CONFIG} from '../configs';
 
-
+// Deprecated
 export function apiKeyInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   const API_KEY: string = inject(APP_CONFIG)?.weatherAPIKey;
   const newReq = req.clone({

@@ -1,22 +1,27 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
-import {APP_CONFIG} from '../configs';
-import {DEFAULT_FORECAST} from '../consts';
-import {CityEntity, CurrentWeatherEntity, ForecastEntity} from '../entities';
+import { DEFAULT_FORECAST } from '../consts';
+import { CityEntity, CurrentWeatherEntity, ForecastEntity } from '../entities';
 
 @Injectable()
 export class WeatherService {
-  #APIUrl = inject(APP_CONFIG)?.weatherAPI;
-  #UNITS = inject(APP_CONFIG)?.units;
-  #httpClient = inject(HttpClient);
+  #http = inject(HttpClient);
+  #base = environment.apiBase;
 
-  getCurrentWeatherByCity = (cityName: string): Observable<CurrentWeatherEntity> => {
-    return this.#httpClient.get(`${this.#APIUrl}weather?q=${cityName}&units=${this.#UNITS}`) as Observable<CurrentWeatherEntity>;
+  getCurrentWeatherByCity(cityName: string): Observable<CurrentWeatherEntity> {
+    return this.#http.get(
+      `${this.#base}/v1/weather?city=${encodeURIComponent(cityName)}`
+    ) as Observable<CurrentWeatherEntity>;
   }
 
-  getNDaysForecast = ({ name, cnt = DEFAULT_FORECAST }: Partial<CityEntity> & { cnt?: number }): Observable<ForecastEntity> => {
-    return this.#httpClient.get(`${this.#APIUrl}forecast?q=${name}&cnt=${cnt}&units=${this.#UNITS}`) as Observable<ForecastEntity>;
+  getNDaysForecast(
+    { name, cnt = DEFAULT_FORECAST }: Partial<CityEntity> & { cnt?: number }
+  ): Observable<ForecastEntity> {
+    return this.#http.get(
+      `${this.#base}/v1/weather/forecast?city=${encodeURIComponent(name!)}&cnt=${cnt}`
+    ) as Observable<ForecastEntity>;
   }
 }
